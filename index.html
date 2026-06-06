@@ -3,470 +3,396 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auto-évaluation Automatisme — Nassim Cherdioui</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Bilan de Compétences — Nassim Cherdioui</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0d0f14; --bg2: #141720; --bg3: #1c2030;
-  --border: #2a2f42; --border2: #363d55;
-  --text: #e8eaf2; --text2: #8b91a8; --text3: #555c78;
-  --accent: #4f7cff; --accent2: #3a5fd4;
-  --l1: #ff5f5f; --l2: #ffaa33; --l3: #4f7cff; --l4: #3ecf8e;
-  --l1-bg: rgba(255,95,95,0.1); --l2-bg: rgba(255,170,51,0.1);
-  --l3-bg: rgba(79,124,255,0.1); --l4-bg: rgba(62,207,142,0.1);
-  --priority: #f59e0b;
+  --ink: #1a1a2e; --paper: #f5f3ee; --paper2: #ede9e0;
+  --accent: #c8392b; --gold: #c9a84c; --muted: #7a7568; --border: #d4cfc4;
+  --green: #2d6a4f; --green-bg: #d8f3dc;
+  --blue: #1d3461; --blue-bg: #dce8f7;
+  --orange: #b5541a; --orange-bg: #fde8d8;
+  --amber: #92400e; --amber-bg: #fef3c7;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0 0 100px; }
+body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; }
 
-header {
-  background: var(--bg2); border-bottom: 1px solid var(--border);
-  padding: 24px 40px; position: sticky; top: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between; gap: 20px;
-}
-.header-left h1 { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; letter-spacing: 0.08em; }
-.header-left p { font-size: 11px; color: var(--text3); margin-top: 3px; font-family: 'IBM Plex Mono', monospace; }
-.header-right { display: flex; align-items: center; gap: 16px; }
-.progress-wrap { display: flex; align-items: center; gap: 10px; }
-.progress-track { width: 160px; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
-.progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.3s ease; width: 0%; }
-.progress-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text3); min-width: 44px; text-align: right; }
+.masthead { background: var(--ink); padding: 40px 48px 36px; position: relative; overflow: hidden; }
+.masthead::before { content:''; position:absolute; top:-60px; right:-60px; width:300px; height:300px; border-radius:50%; border:60px solid rgba(200,57,43,0.12); }
+.masthead::after { content:''; position:absolute; bottom:-40px; left:40%; width:200px; height:200px; border-radius:50%; border:40px solid rgba(201,168,76,0.08); }
+.masthead-inner { position:relative; z-index:1; max-width:860px; margin:0 auto; }
+.masthead-eyebrow { font-family:'Syne',sans-serif; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
+.masthead h1 { font-family:'Syne',sans-serif; font-size:30px; font-weight:800; color:#fff; line-height:1.1; margin-bottom:8px; }
+.masthead h1 span { color:var(--gold); }
+.masthead-sub { font-size:13px; color:rgba(255,255,255,0.5); line-height:1.6; max-width:580px; }
+.masthead-target { display:inline-flex; align-items:center; gap:8px; margin-top:14px; background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.3); padding:6px 14px; border-radius:20px; font-size:11px; color:var(--gold); font-family:'Syne',sans-serif; font-weight:600; letter-spacing:0.08em; }
 
-.intro { max-width: 860px; margin: 32px auto 0; padding: 0 40px; }
-.intro-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; }
-.intro-box p { font-size: 13px; color: var(--text2); line-height: 1.7; }
-.intro-box strong { color: var(--text); font-weight: 500; }
+.progress-bar-wrap { background:var(--ink); border-bottom:1px solid rgba(255,255,255,0.08); padding:10px 48px; position:sticky; top:0; z-index:100; display:flex; align-items:center; gap:14px; }
+.pb-track { flex:1; height:3px; background:rgba(255,255,255,0.1); border-radius:2px; overflow:hidden; }
+.pb-fill { height:100%; background:var(--accent); border-radius:2px; transition:width 0.4s ease; width:0%; }
+.pb-label { font-family:'Syne',sans-serif; font-size:11px; color:rgba(255,255,255,0.4); white-space:nowrap; }
+.pb-pct { font-family:'Syne',sans-serif; font-size:12px; color:var(--accent); font-weight:700; min-width:34px; text-align:right; }
 
-.priority-banner { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); border-radius: 8px; padding: 12px 16px; font-size: 12px; color: var(--priority); display: flex; gap: 10px; align-items: flex-start; }
+main { max-width:860px; margin:0 auto; padding:36px 48px 100px; }
 
-.legend-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
-.legend-chip { display: flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 5px; font-size: 11px; font-family: 'IBM Plex Mono', monospace; border: 1px solid; cursor: default; }
-.legend-chip .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
-.chip-l1 { background: var(--l1-bg); border-color: rgba(255,95,95,0.3); color: var(--l1); }
-.chip-l1 .dot { background: var(--l1); }
-.chip-l2 { background: var(--l2-bg); border-color: rgba(255,170,51,0.3); color: var(--l2); }
-.chip-l2 .dot { background: var(--l2); }
-.chip-l3 { background: var(--l3-bg); border-color: rgba(79,124,255,0.3); color: var(--l3); }
-.chip-l3 .dot { background: var(--l3); }
-.chip-l4 { background: var(--l4-bg); border-color: rgba(62,207,142,0.3); color: var(--l4); }
-.chip-l4 .dot { background: var(--l4); }
+.legend { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:28px; padding:12px 16px; background:var(--paper2); border-radius:8px; border:1px solid var(--border); }
+.legend-item { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--muted); }
+.legend-dot { width:7px; height:7px; border-radius:50%; }
 
-main { max-width: 860px; margin: 24px auto 0; padding: 0 40px; display: flex; flex-direction: column; gap: 20px; }
+.chapter { margin-bottom:44px; }
+.chapter-header { display:flex; align-items:flex-start; gap:14px; margin-bottom:18px; padding-bottom:14px; border-bottom:2px solid var(--ink); }
+.chapter-num { font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); background:rgba(200,57,43,0.08); padding:4px 10px; border-radius:4px; white-space:nowrap; margin-top:2px; }
+.chapter-focus { font-size:10px; font-weight:600; padding:3px 8px; border-radius:4px; margin-top:2px; white-space:nowrap; }
+.focus-auto { background:var(--blue-bg); color:var(--blue); }
+.focus-spie { background:var(--green-bg); color:var(--green); }
+.focus-perso { background:var(--amber-bg); color:var(--amber); }
+.chapter-meta { flex:1; }
+.chapter-title { font-family:'Syne',sans-serif; font-size:19px; font-weight:700; color:var(--ink); margin-bottom:3px; }
+.chapter-desc { font-size:12px; color:var(--muted); line-height:1.5; }
 
-.domain { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-.domain.core { border-color: rgba(79,124,255,0.35); }
-.domain.secondary { border-color: var(--border); }
-.domain.context { border-color: rgba(62,207,142,0.2); }
+.q-block { margin-bottom:16px; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; transition:box-shadow 0.2s; }
+.q-block:hover { box-shadow:0 2px 10px rgba(0,0,0,0.06); }
+.q-block.answered { border-color:#b8d8be; }
+.q-block.priority { border-left:3px solid var(--accent); }
 
-.domain-header { display: flex; align-items: center; gap: 12px; padding: 16px 22px; border-bottom: 1px solid var(--border); }
-.domain-icon { width: 32px; height: 32px; border-radius: 7px; background: var(--bg3); border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
-.domain-meta { flex: 1; }
-.domain-name { font-size: 13px; font-weight: 600; color: var(--text); }
-.domain-sub { font-size: 11px; color: var(--text3); font-family: 'IBM Plex Mono', monospace; margin-top: 2px; }
-.domain-badge { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; white-space: nowrap; }
-.badge-core { background: var(--l3-bg); color: var(--l3); border: 1px solid rgba(79,124,255,0.3); }
-.badge-secondary { background: var(--bg3); color: var(--text3); border: 1px solid var(--border2); }
-.badge-context { background: var(--l4-bg); color: var(--l4); border: 1px solid rgba(62,207,142,0.3); }
-.domain-count { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text3); background: var(--bg3); padding: 3px 7px; border-radius: 4px; border: 1px solid var(--border); }
+.q-header { display:flex; align-items:flex-start; gap:10px; padding:13px 15px 0; }
+.q-num { font-family:'Syne',sans-serif; font-size:10px; font-weight:700; color:var(--muted); background:var(--paper2); padding:3px 7px; border-radius:4px; white-space:nowrap; flex-shrink:0; margin-top:1px; }
+.q-label { font-size:13px; font-weight:500; color:var(--ink); line-height:1.5; flex:1; }
+.q-hint { font-size:11px; color:var(--muted); font-style:italic; padding:4px 15px 0 42px; line-height:1.4; }
+.q-input-wrap { padding:9px 15px 13px; }
 
-.skill-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 14px; padding: 12px 22px; border-bottom: 1px solid var(--border); transition: background 0.15s; }
-.skill-row:last-child { border-bottom: none; }
-.skill-row:hover { background: rgba(255,255,255,0.02); }
-.skill-row.priority-skill { background: rgba(245,158,11,0.04); }
-.skill-row.priority-skill:hover { background: rgba(245,158,11,0.07); }
+textarea { width:100%; border:1px solid var(--border); border-radius:6px; background:var(--paper); font-family:'DM Sans',sans-serif; font-size:13px; color:var(--ink); padding:9px 11px; resize:vertical; min-height:68px; transition:border-color 0.2s,background 0.2s; line-height:1.6; }
+textarea:focus { outline:none; border-color:var(--accent); background:#fff; }
+textarea::placeholder { color:var(--muted); opacity:0.6; }
 
-.skill-label { font-size: 13px; color: var(--text2); line-height: 1.4; display: flex; align-items: flex-start; gap: 8px; }
-.skill-priority-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--priority); flex-shrink: 0; margin-top: 5px; }
-.skill-label-text { flex: 1; }
-.skill-ref { display: block; font-size: 10px; color: var(--text3); font-family: 'IBM Plex Mono', monospace; margin-top: 2px; }
+.q-footer { display:flex; align-items:center; gap:6px; padding:0 15px 11px; flex-wrap:wrap; }
+.q-tag { font-size:10px; padding:2px 7px; border-radius:20px; font-weight:500; }
+.qt-cv { background:var(--green-bg); color:var(--green); }
+.qt-entretien { background:var(--blue-bg); color:var(--blue); }
+.qt-confiance { background:rgba(201,168,76,0.15); color:#7a5c00; }
+.qt-tech { background:var(--orange-bg); color:var(--orange); }
+.qt-auto { background:var(--blue-bg); color:var(--blue); border:1px solid rgba(29,52,97,0.2); }
 
-.rating-btns { display: flex; gap: 3px; flex-shrink: 0; }
-.rating-btn { width: 30px; height: 30px; border-radius: 5px; border: 1px solid var(--border2); background: var(--bg3); color: var(--text3); font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; }
-.rating-btn:hover { background: var(--bg); color: var(--text2); }
-.rating-btn[data-val="1"].active { background: var(--l1-bg); border-color: var(--l1); color: var(--l1); }
-.rating-btn[data-val="2"].active { background: var(--l2-bg); border-color: var(--l2); color: var(--l2); }
-.rating-btn[data-val="3"].active { background: var(--l3-bg); border-color: var(--l3); color: var(--l3); }
-.rating-btn[data-val="4"].active { background: var(--l4-bg); border-color: var(--l4); color: var(--l4); }
+.q-importance { display:flex; gap:2px; margin-left:auto; }
+.q-importance span { display:block; width:4px; height:4px; border-radius:50%; background:var(--border); }
+.q-importance.imp-3 span:nth-child(-n+3) { background:var(--accent); }
+.q-importance.imp-2 span:nth-child(-n+2) { background:var(--gold); }
+.q-importance.imp-1 span:nth-child(1) { background:var(--muted); }
 
-.section-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text3); padding: 0 40px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-.section-title::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+.callout { background:var(--paper2); border-left:3px solid var(--gold); border-radius:0 8px 8px 0; padding:11px 15px; font-size:12px; color:var(--muted); margin-bottom:16px; line-height:1.6; }
+.callout strong { color:var(--ink); }
 
-.actions { max-width: 860px; margin: 28px auto 0; padding: 0 40px; display: flex; gap: 10px; flex-wrap: wrap; }
-.btn-export { display: flex; align-items: center; gap: 7px; padding: 11px 20px; border-radius: 7px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; cursor: pointer; letter-spacing: 0.05em; border: none; transition: all 0.15s; }
-.btn-primary { background: var(--accent); color: #fff; }
-.btn-primary:hover { background: var(--accent2); }
-.btn-secondary { background: var(--bg2); color: var(--text2); border: 1px solid var(--border2); }
-.btn-secondary:hover { background: var(--bg3); color: var(--text); }
-.btn-reset { background: transparent; color: var(--text3); border: 1px solid var(--border); }
-.btn-reset:hover { color: var(--l1); border-color: var(--l1); }
+.actions-bar { position:fixed; bottom:0; left:0; right:0; background:rgba(245,243,238,0.96); backdrop-filter:blur(8px); border-top:1px solid var(--border); padding:12px 48px; display:flex; align-items:center; justify-content:space-between; gap:12px; z-index:200; }
+.actions-left { font-size:12px; color:var(--muted); }
+.actions-left strong { color:var(--ink); }
+.actions-right { display:flex; gap:9px; }
+.btn { font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:9px 18px; border-radius:6px; cursor:pointer; border:none; transition:all 0.15s; }
+.btn-primary { background:var(--accent); color:#fff; }
+.btn-primary:hover { background:#a82e1f; }
+.btn-secondary { background:var(--ink); color:#fff; }
+.btn-secondary:hover { background:#2d2d45; }
+.btn-ghost { background:transparent; color:var(--muted); border:1px solid var(--border); }
+.btn-ghost:hover { color:var(--ink); border-color:var(--ink); }
 
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.78); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
-.modal-overlay.open { display: flex; }
-.modal { background: var(--bg2); border: 1px solid var(--border2); border-radius: 14px; width: 100%; max-width: 700px; max-height: 80vh; display: flex; flex-direction: column; overflow: hidden; }
-.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--border); }
-.modal-header h2 { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; }
-.modal-close { background: none; border: none; color: var(--text3); font-size: 20px; cursor: pointer; padding: 2px 6px; border-radius: 4px; }
-.modal-close:hover { color: var(--text); background: var(--bg3); }
-.modal-body { flex: 1; overflow-y: auto; padding: 18px 22px; }
-.modal-body pre { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text2); line-height: 1.8; white-space: pre-wrap; word-break: break-word; }
-.modal-footer { padding: 14px 22px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(26,26,46,0.72); z-index:300; align-items:center; justify-content:center; padding:20px; }
+.modal-overlay.open { display:flex; }
+.modal { background:#fff; border-radius:14px; width:100%; max-width:700px; max-height:82vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.25); }
+.modal-head { background:var(--ink); padding:18px 22px; display:flex; align-items:center; justify-content:space-between; }
+.modal-head h2 { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:#fff; letter-spacing:0.1em; text-transform:uppercase; }
+.modal-close { background:none; border:none; color:rgba(255,255,255,0.5); font-size:22px; cursor:pointer; padding:0 4px; }
+.modal-close:hover { color:#fff; }
+.modal-body { flex:1; overflow-y:auto; padding:18px 22px; }
+.modal-body pre { font-family:'Courier New',monospace; font-size:11px; color:var(--ink); line-height:1.9; white-space:pre-wrap; word-break:break-word; }
+.modal-foot { padding:13px 22px; border-top:1px solid var(--border); display:flex; gap:9px; }
 
-.toast { position: fixed; bottom: 28px; right: 28px; background: var(--l4-bg); border: 1px solid var(--l4); color: var(--l4); padding: 9px 16px; border-radius: 7px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; opacity: 0; transform: translateY(8px); transition: all 0.3s; pointer-events: none; z-index: 300; }
-.toast.show { opacity: 1; transform: translateY(0); }
+.toast { position:fixed; bottom:75px; right:22px; background:var(--green); color:#fff; padding:9px 16px; border-radius:7px; font-family:'Syne',sans-serif; font-size:12px; font-weight:600; opacity:0; transform:translateY(8px); transition:all 0.3s; pointer-events:none; z-index:400; }
+.toast.show { opacity:1; transform:translateY(0); }
 
-@media (max-width: 600px) {
-  header { padding: 14px 18px; flex-wrap: wrap; }
-  main, .intro, .actions, .section-title { padding-left: 16px; padding-right: 16px; }
-  .skill-row { grid-template-columns: 1fr; gap: 8px; }
-  .rating-btns { justify-content: flex-end; }
+@media (max-width:640px) {
+  .masthead, main { padding-left:18px; padding-right:18px; }
+  .progress-bar-wrap, .actions-bar { padding-left:18px; padding-right:18px; }
+  .actions-bar { flex-direction:column; gap:8px; }
+  .actions-right { width:100%; }
+  .btn { flex:1; text-align:center; }
 }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-left">
-    <h1>AUTO-ÉVALUATION // NASSIM CHERDIOUI</h1>
-    <p>Technicien Automatisme Industriel · Cible : PME intégrateur Toulouse</p>
-  </div>
-  <div class="header-right">
-    <div class="progress-wrap">
-      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      <div class="progress-label" id="progressLabel">0 / 0</div>
-    </div>
-  </div>
-</header>
-
-<div class="intro">
-  <div class="intro-box">
-    <div style="font-size:18px;flex-shrink:0;margin-top:1px">⚙️</div>
-    <div>
-      <p><strong>Évalue ton niveau actuel</strong> — pas à la sortie du master, mais aujourd'hui. Les compétences marquées <span style="color:var(--priority);font-weight:500">●</span> sont <strong>prioritaires pour les recruteurs automatisme industriel</strong> (PME intégrateurs, Actemium, CAP INGELEC…). Ce sont celles à réactiver en premier.</p>
-      <div class="legend-row">
-        <div class="legend-chip chip-l1"><span class="dot"></span>1 — Vu, oublié</div>
-        <div class="legend-chip chip-l2"><span class="dot"></span>2 — Notion, besoin d'aide</div>
-        <div class="legend-chip chip-l3"><span class="dot"></span>3 — Applique seul</div>
-        <div class="legend-chip chip-l4"><span class="dot"></span>4 — À l'aise, peut expliquer</div>
-      </div>
-    </div>
-  </div>
-  <div class="priority-banner">
-    <span style="font-size:14px;flex-shrink:0">★</span>
-    <span><strong>Ordre de priorité automatisme :</strong> API/PLC Siemens → GRAFCET/Ladder → Régulation PID → SCADA/WinCC → Réseaux Modbus/Profibus → Électrotechnique/capteurs. Les domaines embarqués purs (RTOS, C bas niveau) sont en arrière-plan pour cette cible.</span>
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-eyebrow">Coaching emploi · Bilan complet · Automatisme industriel</div>
+    <h1>Tout ce que tu as vécu<br>est une <span>munition</span>.</h1>
+    <div class="masthead-sub">Questionnaire exhaustif et confidentiel. Il n'y a pas de bonne ou mauvaise réponse. Plus tu es précis, plus le dossier sera fort. Chaque détail peut faire la différence.</div>
+    <div class="masthead-target">🎯 Cible : Technicien Automatisme Industriel — PME Toulouse</div>
   </div>
 </div>
 
-<main id="mainContent"></main>
+<div class="progress-bar-wrap">
+  <span class="pb-label">Progression</span>
+  <div class="pb-track"><div class="pb-fill" id="pbFill"></div></div>
+  <span class="pb-pct" id="pbPct">0%</span>
+  <span class="pb-label" id="pbCount">0 / 0</span>
+</div>
 
-<div class="actions">
-  <button class="btn-export btn-primary" onclick="openModal('json')">⬇ Exporter JSON</button>
-  <button class="btn-export btn-secondary" onclick="openModal('text')">📄 Exporter texte</button>
-  <button class="btn-export btn-reset" onclick="resetAll()">↺ Réinitialiser</button>
+<main>
+<div class="legend">
+  <div class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>Utile CV</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--blue)"></span>Argument entretien</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--gold)"></span>Confiance</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--orange)"></span>Technique</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--accent)"></span>Spécifique automatisme</div>
+  <div style="margin-left:auto;display:flex;gap:5px;align-items:center">
+    <span class="legend-dot" style="background:var(--accent);width:5px;height:5px"></span>
+    <span class="legend-dot" style="background:var(--accent);width:5px;height:5px"></span>
+    <span class="legend-dot" style="background:var(--accent);width:5px;height:5px"></span>
+    <span style="font-size:11px;color:var(--muted);margin-left:3px">= priorité haute</span>
+  </div>
+</div>
+<div id="questionnaire"></div>
+</main>
+
+<div class="actions-bar">
+  <div class="actions-left"><strong id="answeredCount">0</strong> / <strong id="totalCount">0</strong> renseignées</div>
+  <div class="actions-right">
+    <button class="btn btn-ghost" onclick="resetAll()">Réinitialiser</button>
+    <button class="btn btn-secondary" onclick="openModal('text')">Texte</button>
+    <button class="btn btn-primary" onclick="openModal('json')">JSON</button>
+  </div>
 </div>
 
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
-    <div class="modal-header">
-      <h2 id="modalTitle">EXPORT</h2>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
+    <div class="modal-head"><h2 id="modalTitle">Export</h2><button class="modal-close" onclick="closeModal()">✕</button></div>
     <div class="modal-body"><pre id="modalContent"></pre></div>
-    <div class="modal-footer">
-      <button class="btn-export btn-primary" onclick="copyToClipboard()">Copier</button>
-      <button class="btn-export btn-secondary" onclick="closeModal()">Fermer</button>
+    <div class="modal-foot">
+      <button class="btn btn-primary" onclick="copyClipboard()">Copier</button>
+      <button class="btn btn-ghost" onclick="closeModal()">Fermer</button>
     </div>
   </div>
 </div>
-
-<div class="toast" id="toast">✓ Copié !</div>
+<div class="toast" id="toast">Copié !</div>
 
 <script>
-// PRIORITY = true → compétence prioritaire automatisme industriel
-const DOMAINS = [
+const CHAPTERS = [
   {
-    id: "api", icon: "🖥️", tier: "core",
-    name: "Automates programmables industriels (API / PLC)",
-    sub: "PRIORITÉ 1 — cœur du métier technicien automatisme",
-    badge: "CŒUR MÉTIER",
-    skills: [
-      { id: "api_archi", label: "Architecture interne API — CPU, modules E/S, alimentation, fond de panier", ref: "Cours Automatismes industriels — UMMTO", priority: true },
-      { id: "ladder", label: "Programmation Ladder (LD) — contacts, bobines, temporisateurs, compteurs", ref: "TP API S7-300 — UMMTO", priority: true },
-      { id: "fbd", label: "Programmation FBD (Function Block Diagram) — blocs fonctions prédéfinis", ref: "TP API — IEC 61131-3", priority: true },
-      { id: "st", label: "Texte Structuré (ST) — algorithmes, boucles, conditions", ref: "TP API — IEC 61131-3", priority: false },
-      { id: "grafcet_model", label: "Modélisation GRAFCET — étapes, transitions, actions", ref: "Cours + TD — UMMTO", priority: true },
-      { id: "grafcet_code", label: "Traduction GRAFCET → code API (séquences, modes de marche)", ref: "TP API — UMMTO", priority: true },
-      { id: "tia_portal", label: "TIA Portal — configuration matérielle, programmation, mise en service", ref: "TP labo maquettes — UMMTO", priority: true },
-      { id: "step7", label: "SIMATIC STEP 7 — environnement classique S7-300", ref: "TP labo — UMMTO", priority: false },
-      { id: "plcsim", label: "PLCSim — simulation automate sans matériel physique", ref: "Outil de remise à niveau", priority: true },
-      { id: "signaux_io", label: "Signaux industriels — 4–20 mA, 0–10 V, TOR 24 VDC, câblage E/S", ref: "Cours API — UMMTO", priority: true },
-      { id: "securite_api", label: "Sécurité machine — arrêts d'urgence, modes de marche GEMMA", ref: "Cours Automatismes industriels", priority: false },
+    id: "identite", num: "01", focus: "perso",
+    title: "Identité & pitch personnel",
+    desc: "La matière premiere du discours. Ce que tu dis en 30 secondes conditionne tout le reste de l'entretien.",
+    questions: [
+      { id: "pitch_spontane", label: "En 3 phrases, tu te presentes a un recruteur dans un ascenseur. Tu dis quoi ?", hint: "Ne reflechis pas trop. Ce qui vient naturellement est souvent le meilleur.", tags: ["confiance","entretien"], imp: 3 },
+      { id: "fierte_perso", label: "Quelle est la chose dont tu es le plus fier dans ton parcours, meme si ca te semble banal ?", hint: "Ce qu'on minimise soi-meme est souvent ce qui impressionne le plus les autres.", tags: ["confiance","entretien"], imp: 3 },
+      { id: "pourquoi_automatisme", label: "Pourquoi l'automatisme industriel specifiquement ? Qu'est-ce qui t'attire dans ce metier ?", hint: "C'est LA question de motivation. Il faut une reponse solide et sincere.", tags: ["entretien","auto"], imp: 3 },
+      { id: "journee_ideale", label: "Decris ta journee de travail ideale dans 2 ans. Tu fais quoi concretement ?", hint: "Montre que tu sais ce que le metier implique vraiment.", tags: ["entretien"], imp: 2 },
+      { id: "qualites_reconnues", label: "Quelles qualites tes collegues ou proches te reconnaissent spontanement ?", hint: "", tags: ["confiance","entretien"], imp: 2 },
     ]
   },
   {
-    id: "regulation", icon: "📈", tier: "core",
-    name: "Régulation & commande de procédés",
-    sub: "PRIORITÉ 2 — fortement valorisé dans les PME process",
-    badge: "CŒUR MÉTIER",
-    skills: [
-      { id: "pid_theorie", label: "Régulation PID — compréhension actions P (rapidité), I (précision), D (amortissement)", ref: "Cours Commande des procédés — M. Hamiche", priority: true },
-      { id: "pid_tuning", label: "Réglage PID — Ziegler-Nichols, Broida, réglage empirique en labo", ref: "TP Labo TS — UMMTO", priority: true },
-      { id: "pid_api", label: "Implémentation PID dans un API Siemens (bloc FB, paramètres SP/PV/CV)", ref: "TP Régulation + API", priority: true },
-      { id: "identification", label: "Identification système — réponse indicielle, extraction modèle (boîte noire)", ref: "TP Labo TS — UMMTO", priority: false },
-      { id: "laplace", label: "Transformée de Laplace — fonctions de transfert, représentation système", ref: "Cours Commande S3", priority: false },
-      { id: "stabilite", label: "Stabilité — marges de phase/gain, diagrammes Bode, Nyquist", ref: "Cours + TD — UMMTO", priority: false },
-      { id: "antiwindup", label: "Anti-windup, saturation actionneurs — gestion des limites physiques", ref: "TP Régulation avancée", priority: false },
+    id: "spie_deep", num: "02", focus: "spie",
+    title: "SPIE — Creuser l'experience terrain Airbus",
+    desc: "4 ans sur site Airbus c'est beaucoup plus valorisable qu'il n'y parait. On extrait tout.",
+    callout: "Le contexte Airbus est ton atout principal. Chaque detail sur les procedures, les outils, les situations critiques peut etre transforme en argument fort pour un recruteur PME automatisme.",
+    questions: [
+      { id: "spie_incident_dur", label: "La panne ou incident le plus difficile que tu as resolu. Contexte, methode, duree, resultat.", hint: "Format ideal : situation → actions → resultat. Tres attendu en entretien.", tags: ["cv","entretien"], imp: 3 },
+      { id: "spie_innovation", label: "Tu as trouve une facon plus rapide ou efficace de faire quelque chose ? Une procedure amelioree meme informellement ?", hint: "", tags: ["cv","entretien","confiance"], imp: 3 },
+      { id: "spie_outils", label: "Quels logiciels et outils tu utilisais au quotidien ? (ServiceNow, outils Airbus, remote desktop, imaging, ITSM...)", hint: "Meme les outils qui semblent banals peuvent etre valorisables.", tags: ["cv","tech"], imp: 2 },
+      { id: "spie_referent_quoi", label: "Sur quels sujets precis tu etais referent technique ? Les collegues venaient te voir pour quoi exactement ?", hint: "", tags: ["cv","entretien","confiance"], imp: 3 },
+      { id: "spie_deploiement_detail", label: "Un deploiement de masse ou migration que tu as fait. Combien de postes ? Quelle duree ? Ton role exact ?", hint: "Volume + role + duree = chiffres concrets pour le CV.", tags: ["cv","entretien"], imp: 3 },
+      { id: "spie_airbus_specifique", label: "Des specificites techniques ou procedures propres a Airbus que tu as du apprendre ? (securite reseau, configs particulieres, outils internes...)", hint: "", tags: ["cv","entretien","tech"], imp: 3 },
+      { id: "spie_soudure_exemple", label: "La soudure que tu faisais : sur quels composants exactement ? Dans quel contexte ? Un exemple precis ?", hint: "C'est rare et tres valorisant pour un recruteur automatisme. On veut un exemple concret.", tags: ["cv","entretien","tech","confiance"], imp: 3 },
+      { id: "spie_stock_logique", label: "Comment tu gerais le stock de pieces ? Fournisseurs attitrés ? Budget ? Logique de reassort ?", hint: "", tags: ["cv","entretien"], imp: 2 },
+      { id: "spie_urgence_stress", label: "Une situation de stress ou urgence chez SPIE. Comment tu as reagi ?", hint: "", tags: ["entretien","confiance"], imp: 2 },
+      { id: "spie_client_difficile", label: "Un utilisateur ou client difficile. La situation et comment tu l'as geree.", hint: "La gestion d'un interlocuteur mecontent est tres valorisee.", tags: ["entretien","confiance"], imp: 2 },
+      { id: "spie_autonomie_niveau", label: "Niveau d'autonomie reel : tu prenais des decisions seul ou avec validation systematique ?", hint: "", tags: ["cv","entretien"], imp: 2 },
+      { id: "spie_formations", label: "Formations recues chez SPIE ? Habilitations ? Certifications ? Badges acces Airbus ?", hint: "Habilitations electriques, CACES, habilitations site... tout compte.", tags: ["cv","tech"], imp: 2 },
+      { id: "spie_chiffres_autres", label: "D'autres chiffres en tete ? Temps moyen resolution, taux satisfaction, postes deployes sur un projet...", hint: "Les recruteurs adorent les chiffres. Meme approximatifs.", tags: ["cv"], imp: 2 },
+      { id: "spie_relation_equipe", label: "Comment ca se passait dans l'equipe de 2-5 techniciens ? Roles, ambiance, dynamique ?", hint: "", tags: ["entretien"], imp: 1 },
     ]
   },
   {
-    id: "scada", icon: "📊", tier: "core",
-    name: "SCADA, supervision & interfaces HMI",
-    sub: "PRIORITÉ 3 — attendu dans 80% des postes technicien automatisme",
-    badge: "CŒUR MÉTIER",
-    skills: [
-      { id: "wincc_syno", label: "WinCC / TIA Portal WinCC — conception synoptiques, animation d'objets", ref: "TP SCADA — UMMTO", priority: true },
-      { id: "wincc_tags", label: "Liaison tags API ↔ objets graphiques — adressage, mise à jour temps réel", ref: "TP SCADA — UMMTO", priority: true },
-      { id: "alarmes", label: "Gestion alarmes — seuils critiques, logique d'acquittement, journal", ref: "TP SCADA", priority: true },
-      { id: "tendances", label: "Courbes de tendance (trend views) — historisation, analyse dérive", ref: "TP SCADA", priority: false },
-      { id: "ihm_panel", label: "IHM déportée (pupitre opérateur KTP/TP) — configuration panneaux terrain", ref: "TP maquettes UMMTO", priority: true },
-      { id: "histo_sql", label: "Historisation SQL — base de données production, traçabilité lots", ref: "TP SCADA avancé", priority: false },
+    id: "master_automatisme", num: "03", focus: "auto",
+    title: "Master UMMTO — Focus automatisme & projets",
+    desc: "Le master contient des realisations concretes directement liees a l'automatisme. On les exhume.",
+    callout: "Pour un recruteur automatisme, ton PFE vaut un stage ingenieur. Les TP Siemens, GRAFCET, regulation PID sont des preuves directes de competences. Ne minimise pas.",
+    questions: [
+      { id: "pfe_sujet_complet", label: "Ton PFE en detail : sujet exact, contexte, entreprise ou labo, problematique a resoudre.", hint: "C'est l'equivalent d'une experience professionnelle. Sois tres precis.", tags: ["cv","entretien","tech","auto"], imp: 3 },
+      { id: "pfe_techno_api", label: "Dans ton PFE, tu as utilise des automates, des capteurs, des protocoles ? Lesquels exactement ?", hint: "Siemens, Schneider, MATLAB, Arduino, Modbus... tout ce que tu as touche.", tags: ["cv","tech","auto"], imp: 3 },
+      { id: "pfe_resultat_concret", label: "Qu'est-ce que tu as produit concretement ? Programme fonctionnel ? Maquette ? Quel procede tu controlais ?", hint: "", tags: ["cv","entretien","confiance","auto"], imp: 3 },
+      { id: "tp_api_detail", label: "Les TP sur les automates Siemens S7 : tu te souviens de ce que tu as programme ? Quel procede tu pilotais ? Ladder ? Grafcet ?", hint: "Meme vague, c'est mieux que rien. Ca montre une pratique reelle.", tags: ["cv","tech","auto"], imp: 3 },
+      { id: "tp_pid_detail", label: "Les TP de regulation PID : sur quoi tu as regle ? Thermique, hydraulique ? Tu te souviens du protocole de reglage ?", hint: "", tags: ["cv","tech","auto"], imp: 3 },
+      { id: "tp_scada_detail", label: "Les TP HMI/SCADA : sur quel logiciel ? Qu'est-ce que tu as fait concretement ? Synoptiques, alarmes, tags ?", hint: "", tags: ["cv","tech","auto"], imp: 2 },
+      { id: "mini_projet_detail", label: "Le mini-projet integrateur S3 : c'etait quoi ? Qu'est-ce que vous avez construit en equipe ?", hint: "Systeme complet, de bout en bout. Tres valorisable.", tags: ["cv","entretien","auto"], imp: 2 },
+      { id: "variateurs_pratique", label: "Tu as utilise des variateurs de vitesse en TP ? Sur quels moteurs ? Quel environnement (Siemens, Schneider...) ?", hint: "", tags: ["tech","auto"], imp: 2 },
+      { id: "reseaux_pratique", label: "Tu as configure des reseaux industriels en TP ? Modbus, Profibus, Profinet, autre ?", hint: "", tags: ["tech","auto"], imp: 2 },
+      { id: "logiciels_univ_liste", label: "Liste exhaustive des logiciels touches pendant le master (MATLAB, Simulink, STEP7, TIA Portal, LabVIEW, CAO electrique...)", hint: "", tags: ["cv","tech","auto"], imp: 2 },
+      { id: "projet_perso_technique", label: "En dehors des cours, des projets techniques perso a l'universite ou chez toi ? Arduino, electronique, automatisme ?", hint: "", tags: ["cv","confiance","tech"], imp: 2 },
+      { id: "memoire_appreciation", label: "Note ou mention au master ? Felicitations sur un projet ? Appreciation d'un prof en particulier ?", hint: "Meme verbale, une appreciation peut etre mentionnee.", tags: ["cv","confiance"], imp: 1 },
     ]
   },
   {
-    id: "reseaux_indus", icon: "🌐", tier: "core",
-    name: "Réseaux industriels & protocoles terrain",
-    sub: "PRIORITÉ 4 — communication inter-équipements en usine",
-    badge: "CŒUR MÉTIER",
-    skills: [
-      { id: "profinet", label: "Profinet — configuration réseau Siemens, adressage, diagnostic", ref: "TIA Portal — Cours Informatique industrielle", priority: true },
-      { id: "profibus", label: "Profibus DP — câblage, configuration esclaves, GSD files", ref: "Cours Informatique industrielle — UMMTO", priority: false },
-      { id: "modbus_rtu", label: "Modbus RTU (RS-485) — configuration maître/esclave, registres, câblage", ref: "Cours Informatique industrielle", priority: true },
-      { id: "modbus_tcp", label: "Modbus TCP/IP — configuration, adressage, test communication", ref: "Cours Informatique industrielle", priority: true },
-      { id: "ethernet_indus", label: "Ethernet industriel — switch managé, VLAN basique, diagnostic réseau", ref: "Cours Informatique industrielle", priority: false },
-      { id: "cem", label: "CEM — séparation câbles puissance/signal, blindage, mise à la terre", ref: "Module Schématique — UMMTO", priority: true },
-      { id: "can", label: "CAN bus — arbitrage, trames, détection erreurs (automotive/embarqué)", ref: "Cours Informatique industrielle", priority: false },
+    id: "remise_niveau", num: "04", focus: "auto",
+    title: "Remise a niveau & projets en cours",
+    desc: "Ce que Nassim fait MAINTENANT pour se remettre a niveau. C'est ce que le recruteur regardera en premier.",
+    callout: "Un candidat qui attend passivement VS un candidat qui pratique sur PLCSim, fait des tutos TIA Portal et a un projet en cours : le recruteur choisit le deuxieme systematiquement.",
+    questions: [
+      { id: "tia_remise_niveau", label: "Tu as reinstalle ou utilise TIA Portal recemment ? Tu te souviens comment configurer un projet de base ?", hint: "Siemens propose une version d'essai gratuite. PLCSim permet de simuler sans materiel.", tags: ["cv","entretien","tech","auto"], imp: 3 },
+      { id: "projet_perso_maintenant", label: "Un projet technique en cours ou prevu chez toi pour pratiquer ? Arduino, automate, Raspberry Pi, simulation ?", hint: "Meme un projet simple bien documente vaut plus que 10 lignes de CV.", tags: ["cv","entretien","confiance","auto"], imp: 3 },
+      { id: "ressources_utilisees", label: "Quelles ressources tu utilises pour te remettre a niveau ? (YouTube, docs Siemens, forums, MOOC, autre...)", hint: "", tags: ["entretien","confiance"], imp: 2 },
+      { id: "certif_habilitation", label: "Habilitation electrique en cours ou prevue ? (B0, BR, BC minimum conseille pour technicien automatisme)", hint: "Sans habilitation electrique, certaines PME ne peuvent pas te faire travailler sur site.", tags: ["cv","entretien","auto"], imp: 3 },
+      { id: "certif_siemens", label: "Certification Siemens TIA Portal envisagee ? Tu en as entendu parler ?", hint: "La certification SITRAIN est reconnue sur le marche mais non obligatoire.", tags: ["cv","entretien"], imp: 2 },
+      { id: "enic_naric_status", label: "Dossier ENIC-NARIC pour la reconnaissance du diplome algerien : lance, en cours, pas encore ?", hint: "Obligatoire a lancer maintenant. Delai 2-3 mois. Cout 120 euros.", tags: ["cv"], imp: 3 },
+      { id: "github_portfolio", label: "Tu as un GitHub, un portfolio, des photos de projets ? Quelque chose a montrer a un recruteur ?", hint: "Meme un repo avec un projet simple TIA Portal ou Arduino est un atout enorme.", tags: ["cv","entretien"], imp: 2 },
+      { id: "linkedin_status", label: "LinkedIn : a jour ? Photo pro ? Titre du profil reformule vers automatisme ?", hint: "Le titre LinkedIn c'est la premiere chose qu'un recruteur PME voit.", tags: ["cv"], imp: 2 },
     ]
   },
   {
-    id: "electrotechnique", icon: "⚡", tier: "secondary",
-    name: "Électrotechnique & protections électriques",
-    sub: "Socle indispensable pour travailler sur site industriel",
-    badge: "COMPLÉMENTAIRE",
-    skills: [
-      { id: "plans_electriques", label: "Lecture plans électriques — unifilaire, multifilaire, schéma de puissance", ref: "Module Schématique — M. Zirmi", priority: true },
-      { id: "armoire_elec", label: "Câblage armoire électrique — borniers, repérage, cheminement câbles", ref: "TP labo UMMTO + SPIE terrain", priority: true },
-      { id: "protections", label: "Protections — disjoncteurs magnéto-thermiques, relais thermiques moteur, fusibles", ref: "Module Schématique", priority: false },
-      { id: "moteurs_async", label: "Moteurs asynchrones — fonctionnement, couplages étoile/triangle, démarrage", ref: "Module Machines électriques — UMMTO", priority: true },
-      { id: "variateurs", label: "Variateurs de vitesse (VFD/VSD) — principe, paramétrage basique Schneider/Siemens", ref: "Module Entraînements électriques", priority: true },
-      { id: "habilitation", label: "Habilitation électrique (B0/H0 minimum, idéalement BR) — niveau actuel ?", ref: "Formation SPIE ou externe", priority: true },
-      { id: "elec_puissance", label: "Électronique de puissance — IGBT, MOSFET, thyristors (lecture datasheet)", ref: "Module Élec. puissance avancée", priority: false },
+    id: "competences_cachees", num: "05", focus: "perso",
+    title: "Competences cachees & transversales",
+    desc: "Ce que tu sais faire sans y avoir pense comme une competence professionnelle.",
+    questions: [
+      { id: "apprend_comment", label: "Quand tu dois apprendre quelque chose de nouveau techniquement, comment tu procedes exactement ?", hint: "La facon dont on apprend est une competence en soi tres valorisee.", tags: ["entretien","confiance"], imp: 2 },
+      { id: "dernier_appris_tech", label: "La derniere chose technique que tu as apprise par toi-meme, en dehors du travail et des etudes.", hint: "", tags: ["entretien","confiance"], imp: 2 },
+      { id: "permis_mobilite", label: "Permis de conduire ? Vehicule ? Mobile pour des deplacements terrain ou decouches ?", hint: "Critique pour les PME automatisme qui font des mises en service sur site client.", tags: ["cv","entretien","auto"], imp: 3 },
+      { id: "anglais_technique", label: "Anglais technique : tu lis une notice variateur ou datasheet en anglais sans trop galérer ?", hint: "Beaucoup de documentation industrielle est en anglais. Soyons honnetes.", tags: ["cv","entretien"], imp: 2 },
+      { id: "initiative_exemple", label: "Un exemple ou tu as pris une initiative non demandee qui a eu un impact positif. Meme petit.", hint: "C'est le signal du profil proactif. Tres recherche dans les PME.", tags: ["entretien","confiance"], imp: 3 },
+      { id: "gestion_stress_exemple", label: "Une situation de stress intense. Ta reaction concrete et le resultat.", hint: "", tags: ["entretien","confiance"], imp: 2 },
+      { id: "outils_numeriques", label: "Outils numeriques que tu maitrises bien : Excel, CAO electrique, outils dessin, gestion projet...", hint: "", tags: ["cv","tech"], imp: 1 },
     ]
   },
   {
-    id: "instrumentation", icon: "📡", tier: "secondary",
-    name: "Instrumentation & capteurs industriels",
-    sub: "Interface entre le procédé physique et l'automate",
-    badge: "COMPLÉMENTAIRE",
-    skills: [
-      { id: "capteurs_T", label: "Capteurs température — PT100, thermocouples K/J, transmetteurs 4–20 mA", ref: "Cours Instrumentation — UMMTO", priority: true },
-      { id: "capteurs_P", label: "Capteurs pression/débit/niveau — transmetteurs différentiels, raccordement", ref: "Cours Instrumentation — UMMTO", priority: false },
-      { id: "capteurs_TOR", label: "Capteurs TOR — inductifs, capacitifs, optiques, fins de course", ref: "TP API — UMMTO", priority: true },
-      { id: "conditionnement", label: "Conditionnement signal — amplification, filtrage, isolation galvanique", ref: "Cours Instrumentation", priority: false },
-      { id: "oscillo_multi", label: "Oscilloscope & multimètre industriel — mesures, diagnostic terrain", ref: "TP Labo général — UMMTO", priority: true },
-      { id: "calibration", label: "Étalonnage / calibration — vérification transmetteurs, simulation 4–20 mA", ref: "Pratique terrain", priority: false },
+    id: "parcours_perso", num: "06", focus: "perso",
+    title: "Parcours de vie & arguments entretien",
+    desc: "Les questions difficiles preparees ici, plutot qu'en salle d'attente.",
+    callout: "Ces questions sont celles qui pieges le plus de candidats. Les preparer maintenant, c'est transformer des bombes en arguments.",
+    questions: [
+      { id: "reconversion_pitch", label: "Comment tu expliques le retour vers l'automatisme apres 4 ans de support informatique ? Ton pitch complet.", hint: "C'est LA question centrale de tous tes entretiens. Il faut une reponse fluide, positive, convaincante.", tags: ["entretien","confiance"], imp: 3 },
+      { id: "pourquoi_quitter_spie", label: "Pourquoi tu quittes SPIE ? La version que tu racontes a un recruteur (sans critiquer).", hint: "Ne jamais critiquer son employeur. Formuler en termes de progression et de projet.", tags: ["entretien"], imp: 3 },
+      { id: "gap_technique_reponse", label: "Le recruteur te dit : 'vous n'avez pas pratique l'automatisme depuis 4 ans'. Tu reponds quoi ?", hint: "Anticiper l'objection et la retourner en argument.", tags: ["entretien","confiance"], imp: 3 },
+      { id: "faiblesse_honnete", label: "Quelle est ta principale faiblesse professionnelle ? La reponse honnete ET formulee intelligemment.", hint: "Mieux vaut la preparer ici que d'improviser face au recruteur.", tags: ["entretien"], imp: 3 },
+      { id: "salaire_negociation", label: "Pretentions salariales : tu reponds quoi ? Est-ce que tu sais negocier ?", hint: "Pour un technicien automatisme PME Toulouse : viser 32-36k€. Ne pas se brader.", tags: ["entretien"], imp: 2 },
+      { id: "pourquoi_nous", label: "Un recruteur PME automatisme te demande 'pourquoi notre entreprise ?'. Tu reponds quoi ?", hint: "La reponse doit montrer que tu as fait des recherches sur eux.", tags: ["entretien"], imp: 2 },
+      { id: "arrivee_france_apport", label: "Ton parcours d'installation en France : qu'est-ce que ca t'a appris ou apporte professionnellement ?", hint: "L'adaptation culturelle et la resilience sont des competences reelles.", tags: ["entretien","confiance"], imp: 2 },
+      { id: "langues", label: "Langues parles et niveaux : francais, arabe, kabyle, anglais, autres.", hint: "Le multilinguisme peut etre un atout selon les entreprises.", tags: ["cv"], imp: 1 },
     ]
-  },
-  {
-    id: "terrain", icon: "🔧", tier: "context",
-    name: "Compétences terrain & mise en service",
-    sub: "Ce que le recruteur PME valorise autant que la technique pure",
-    badge: "TERRAIN",
-    skills: [
-      { id: "commissioning", label: "Mise en service (commissioning) — séquence de démarrage, essais, réception", ref: "TP Mini-projet UMMTO + pratique", priority: true },
-      { id: "diagnostic_terrain", label: "Diagnostic panne terrain — méthode, lecture API en ligne, voyants, logs", ref: "Expérience SPIE + TP", priority: true },
-      { id: "soudure", label: "Soudure électronique — composants traversants, CMS occasionnel", ref: "Expérience SPIE (rare mais avéré)", priority: false },
-      { id: "lecture_doc", label: "Lecture documentation constructeur — notices API, datasheets, manuels variateurs", ref: "Pratique UMMTO + SPIE", priority: true },
-      { id: "redac_technique", label: "Rédaction technique — rapport d'intervention, notice opérateur simple", ref: "Expérience SPIE (rapports)", priority: false },
-      { id: "securite_site", label: "Culture sécurité site industriel — EPI, consignation/déconsignation, LOTO", ref: "Expérience SPIE (site Airbus)", priority: true },
-      { id: "gestion_incidents", label: "Gestion incidents outillée — ticketing ITSM, SLA, escalade", ref: "Expérience SPIE (ServiceNow)", priority: false },
-    ]
-  },
-  {
-    id: "embarque_bg", icon: "🔬", tier: "secondary",
-    name: "Microcontrôleurs & embarqué (arrière-plan)",
-    sub: "Moins prioritaire pour automatisme industriel — à mentionner si besoin",
-    badge: "SECONDAIRE",
-    skills: [
-      { id: "arduino_c", label: "Arduino / C embarqué — programmation registres, capteurs, actionneurs", ref: "TP Maquettes 2 — UMMTO", priority: false },
-      { id: "bus_spi_i2c", label: "Bus SPI, I2C, UART — communication composants bas niveau", ref: "TP Maquettes 2 — UMMTO", priority: false },
-      { id: "adc_pwm", label: "ADC/DAC, PWM — acquisition signal, commande moteur DC", ref: "TP Maquettes 2 — UMMTO", priority: false },
-      { id: "rtos_concept", label: "RTOS — ordonnancement tâches temps réel (concept)", ref: "Cours Élec. TR — UMMTO", priority: false },
-      { id: "iot_base", label: "IoT embarqué — envoi données WiFi/GSM (concept + Arduino)", ref: "Projets PFE UMMTO", priority: false },
-    ]
-  },
+  }
 ];
 
-const state = {};
-let totalSkills = 0;
-
-DOMAINS.forEach(d => d.skills.forEach(s => { state[s.id] = 0; totalSkills++; }));
-
-const SECTION_LABELS = { core: "● COMPÉTENCES CŒUR — Prioritaires pour le recruteur automatisme", secondary: "◎ COMPÉTENCES COMPLÉMENTAIRES — Atouts supplémentaires", context: "◈ COMPÉTENCES TERRAIN — Valorisation de l'expérience SPIE" };
-const SECTION_ORDER = ["core","secondary","context"];
+const answers = {};
+let totalQ = 0;
+CHAPTERS.forEach(c => c.questions.forEach(q => { answers[q.id] = ""; totalQ++; }));
 
 function buildUI() {
-  const main = document.getElementById("mainContent");
-  main.innerHTML = "";
+  const container = document.getElementById("questionnaire");
+  document.getElementById("totalCount").textContent = totalQ;
+  document.getElementById("pbCount").textContent = `0 / ${totalQ}`;
 
-  SECTION_ORDER.forEach(tier => {
-    const domainsInTier = DOMAINS.filter(d => d.tier === tier);
-    if (!domainsInTier.length) return;
+  CHAPTERS.forEach(ch => {
+    const div = document.createElement("div");
+    div.className = "chapter";
+    const focusClass = { auto: "focus-auto", spie: "focus-spie", perso: "focus-perso" }[ch.focus];
+    const focusLabel = { auto: "Automatisme", spie: "Expérience terrain", perso: "Parcours personnel" }[ch.focus];
+    div.innerHTML = `
+      <div class="chapter-header">
+        <div class="chapter-num">${ch.num}</div>
+        <span class="chapter-focus ${focusClass}">${focusLabel}</span>
+        <div class="chapter-meta">
+          <div class="chapter-title">${ch.title}</div>
+          <div class="chapter-desc">${ch.desc}</div>
+        </div>
+      </div>
+      ${ch.callout ? `<div class="callout">${ch.callout}</div>` : ""}
+    `;
 
-    const label = document.createElement("div");
-    label.className = "section-title";
-    label.textContent = SECTION_LABELS[tier];
-    main.appendChild(label);
+    ch.questions.forEach((q, qi) => {
+      const tagHTML = q.tags.map(t => {
+        const map = { cv:"qt-cv CV", entretien:"qt-entretien Entretien", confiance:"qt-confiance Confiance", tech:"qt-tech Technique", auto:"qt-auto Automatisme" };
+        const [cls, lbl] = map[t].split(" ");
+        return `<span class="q-tag ${cls}">${lbl}</span>`;
+      }).join("");
 
-    domainsInTier.forEach(domain => {
-      const domainEl = document.createElement("div");
-      domainEl.className = `domain ${domain.tier}`;
-
-      const badgeClass = { core: "badge-core", secondary: "badge-secondary", context: "badge-context" }[domain.tier];
-      domainEl.innerHTML = `
-        <div class="domain-header">
-          <div class="domain-icon">${domain.icon}</div>
-          <div class="domain-meta">
-            <div class="domain-name">${domain.name}</div>
-            <div class="domain-sub">${domain.sub}</div>
-          </div>
-          <span class="domain-badge ${badgeClass}">${domain.badge}</span>
-          <div class="domain-count" id="count-${domain.id}">0/${domain.skills.length}</div>
+      const block = document.createElement("div");
+      block.className = "q-block" + (q.imp === 3 ? " priority" : "");
+      block.id = `qblock-${q.id}`;
+      block.innerHTML = `
+        <div class="q-header">
+          <div class="q-num">${ch.num}.${String(qi+1).padStart(2,"0")}</div>
+          <div class="q-label">${q.label}</div>
+        </div>
+        ${q.hint ? `<div class="q-hint">💡 ${q.hint}</div>` : ""}
+        <div class="q-input-wrap">
+          <textarea placeholder="Ta reponse ici..." rows="3" data-qid="${q.id}"></textarea>
+        </div>
+        <div class="q-footer">
+          ${tagHTML}
+          <div class="q-importance imp-${q.imp}"><span></span><span></span><span></span></div>
         </div>
       `;
-
-      domain.skills.forEach(skill => {
-        const row = document.createElement("div");
-        row.className = "skill-row" + (skill.priority ? " priority-skill" : "");
-        row.innerHTML = `
-          <div class="skill-label">
-            ${skill.priority ? '<span class="skill-priority-dot" title="Priorité automatisme industriel"></span>' : '<span style="width:5px;flex-shrink:0"></span>'}
-            <span class="skill-label-text">
-              ${skill.label}
-              <span class="skill-ref">${skill.ref}</span>
-            </span>
-          </div>
-          <div class="rating-btns" data-skill="${skill.id}">
-            <button class="rating-btn" data-val="1" title="Vu, oublié">1</button>
-            <button class="rating-btn" data-val="2" title="Notion">2</button>
-            <button class="rating-btn" data-val="3" title="Applique seul">3</button>
-            <button class="rating-btn" data-val="4" title="À l'aise">4</button>
-          </div>
-        `;
-        domainEl.appendChild(row);
-      });
-
-      main.appendChild(domainEl);
+      div.appendChild(block);
     });
+    container.appendChild(div);
   });
 
-  main.addEventListener("click", e => {
-    const btn = e.target.closest(".rating-btn");
-    if (!btn) return;
-    const container = btn.closest(".rating-btns");
-    const skillId = container.dataset.skill;
-    const val = parseInt(btn.dataset.val);
-    if (state[skillId] === val) {
-      state[skillId] = 0;
-      container.querySelectorAll(".rating-btn").forEach(b => b.classList.remove("active"));
-    } else {
-      state[skillId] = val;
-      container.querySelectorAll(".rating-btn").forEach(b => b.classList.toggle("active", parseInt(b.dataset.val) === val));
-    }
-    updateProgress();
-    updateCounts();
+  document.querySelectorAll("textarea").forEach(ta => {
+    ta.addEventListener("input", () => {
+      const qid = ta.dataset.qid;
+      answers[qid] = ta.value;
+      document.getElementById(`qblock-${qid}`).classList.toggle("answered", ta.value.trim().length > 0);
+      updateProgress();
+    });
   });
 }
 
 function updateProgress() {
-  const answered = Object.values(state).filter(v => v > 0).length;
-  const pct = (answered / totalSkills * 100).toFixed(1);
-  document.getElementById("progressFill").style.width = pct + "%";
-  document.getElementById("progressLabel").textContent = `${answered} / ${totalSkills}`;
+  const filled = Object.values(answers).filter(v => v.trim().length > 0).length;
+  const pct = Math.round(filled / totalQ * 100);
+  document.getElementById("pbFill").style.width = pct + "%";
+  document.getElementById("pbPct").textContent = pct + "%";
+  document.getElementById("pbCount").textContent = `${filled} / ${totalQ}`;
+  document.getElementById("answeredCount").textContent = filled;
 }
 
-function updateCounts() {
-  DOMAINS.forEach(d => {
-    const filled = d.skills.filter(s => state[s.id] > 0).length;
-    const el = document.getElementById(`count-${d.id}`);
-    if (el) el.textContent = `${filled}/${d.skills.length}`;
+function buildText() {
+  let out = "BILAN DE COMPETENCES — NASSIM CHERDIOUI\nCible : Technicien Automatisme Industriel — PME Toulouse\n" + "=".repeat(55) + "\n\n";
+  CHAPTERS.forEach(ch => {
+    out += `\n${"─".repeat(55)}\n${ch.num}. ${ch.title.toUpperCase()}\n${"─".repeat(55)}\n\n`;
+    ch.questions.forEach((q, i) => {
+      out += `[${ch.num}.${String(i+1).padStart(2,"0")}] ${q.label}\n→ ${answers[q.id] || "(non renseigne)"}\n\n`;
+    });
   });
+  return out;
 }
 
-const LABELS = ["—", "Vu/oublié", "Notion", "Applique seul", "À l'aise"];
-
-function buildExportJSON() {
-  const answered = Object.values(state).filter(v => v > 0).length;
+function buildJSON() {
+  const filled = Object.values(answers).filter(v => v.trim()).length;
   return JSON.stringify({
-    meta: { nom: "Nassim Cherdioui", cible: "Technicien Automatisme Industriel — PME Toulouse", date: new Date().toLocaleDateString("fr-FR"), completion: `${answered}/${totalSkills}` },
-    domaines: DOMAINS.map(d => ({
-      domaine: d.name, tier: d.tier,
-      competences: d.skills.map(s => ({ id: s.id, competence: s.label, priorite_automatisme: s.priority, niveau: state[s.id], niveau_label: LABELS[state[s.id]] || "—" }))
+    meta: { nom: "Nassim Cherdioui", cible: "Technicien Automatisme Industriel — PME Toulouse", date: new Date().toLocaleDateString("fr-FR"), completion: `${filled}/${totalQ}` },
+    chapitres: CHAPTERS.map(ch => ({
+      id: ch.id, titre: ch.title, focus: ch.focus,
+      questions: ch.questions.map(q => ({ id: q.id, question: q.label, tags: q.tags, priorite: q.imp, reponse: answers[q.id] || "" }))
     }))
   }, null, 2);
 }
 
-function buildExportText() {
-  const answered = Object.values(state).filter(v => v > 0).length;
-  let out = `AUTO-ÉVALUATION — NASSIM CHERDIOUI\nCible : Technicien Automatisme Industriel — PME Toulouse\nDate : ${new Date().toLocaleDateString("fr-FR")} — ${answered}/${totalSkills} compétences évaluées\n`;
-  out += `Échelle : 1=Vu/oublié  2=Notion  3=Applique seul  4=À l'aise  ● = priorité automatisme\n${"─".repeat(65)}\n`;
-
-  DOMAINS.forEach(d => {
-    out += `\n▶ ${d.name.toUpperCase()} [${d.badge}]\n`;
-    d.skills.forEach(s => {
-      const v = state[s.id];
-      const mark = s.priority ? "●" : " ";
-      const bar = v === 0 ? "[ ]" : `[${v}]`;
-      out += `  ${mark} ${bar} ${s.label}\n        → ${v === 0 ? "non évalué" : LABELS[v]}\n`;
-    });
-  });
-
-  out += `\n${"─".repeat(65)}\nSYNTHÈSE PRIORITÉS AUTOMATISME (compétences ● uniquement)\n\n`;
-  [4,3,2,1].forEach(lvl => {
-    const skills = [];
-    DOMAINS.forEach(d => d.skills.forEach(s => { if (s.priority && state[s.id] === lvl) skills.push(s.label); }));
-    if (skills.length) {
-      out += `Niveau ${lvl} — ${LABELS[lvl]} (${skills.length} compétences clés)\n`;
-      skills.forEach(sk => { out += `  • ${sk}\n`; });
-      out += "\n";
-    }
-  });
-  const nonevals = DOMAINS.flatMap(d => d.skills.filter(s => s.priority && state[s.id] === 0));
-  if (nonevals.length) {
-    out += `Non évalué — prioritaires à couvrir (${nonevals.length})\n`;
-    nonevals.forEach(s => { out += `  • ${s.label}\n`; });
-  }
-  return out;
-}
-
 function openModal(type) {
   document.getElementById("modalTitle").textContent = type === "json" ? "EXPORT JSON" : "EXPORT TEXTE";
-  document.getElementById("modalContent").textContent = type === "json" ? buildExportJSON() : buildExportText();
+  document.getElementById("modalContent").textContent = type === "json" ? buildJSON() : buildText();
   document.getElementById("modalOverlay").classList.add("open");
 }
 function closeModal() { document.getElementById("modalOverlay").classList.remove("open"); }
-function copyToClipboard() {
+function copyClipboard() {
   navigator.clipboard.writeText(document.getElementById("modalContent").textContent).then(() => {
     const t = document.getElementById("toast"); t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2500);
   });
 }
 function resetAll() {
-  if (!confirm("Réinitialiser toutes les réponses ?")) return;
-  Object.keys(state).forEach(k => { state[k] = 0; });
-  document.querySelectorAll(".rating-btn").forEach(b => b.classList.remove("active"));
-  updateProgress(); updateCounts();
+  if (!confirm("Effacer toutes les reponses ?")) return;
+  document.querySelectorAll("textarea").forEach(ta => { ta.value = ""; answers[ta.dataset.qid] = ""; });
+  document.querySelectorAll(".q-block").forEach(b => b.classList.remove("answered"));
+  updateProgress();
 }
 document.getElementById("modalOverlay").addEventListener("click", e => { if (e.target === e.currentTarget) closeModal(); });
-
-buildUI(); updateProgress(); updateCounts();
+buildUI();
+updateProgress();
 </script>
 </body>
 </html>
